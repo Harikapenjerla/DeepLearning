@@ -320,7 +320,7 @@ Prepare the data: Only 100000 as training data Scaling the data using mean and s
 2:  Instead of the GRU layer introduced in the textbook model,changed to the LSTM layer.
 3:  The units in first layer_gru is increased to 64 and second layer_gru is increased to 128 in Stacked Recurrent Model.
 
-To find the best performance over the baseline 0.29 (baseline model:training samples of 200000 and validation samples of 100000) plan to run above mentioned 3 approaches code initially by reducing the sample sizes due to some issues with my computational power unable to verify performance (accuarcy,loss).
+To find the best performance over the baseline 0.29 (baseline model:training samples of 200000 and validation samples of 100000) plan to run above mentioned 3 approaches code initially by reducing the sample sizes but unable to verify performance (accuarcy,loss).
 
 
 
