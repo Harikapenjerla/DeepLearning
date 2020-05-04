@@ -55,7 +55,7 @@ data <- read_csv(fname)
 glimpse(data)
 ```
 
-Here is the plot of temperature (in degrees Celsius) over time. On this plot, you can clearly see the yearly periodicity of temperature.
+plot of temperature (in degrees Celsius) over time. On this plot, you can clearly see the yearly periodicity of temperature.
 
 ```{r}
 library(ggplot2)
@@ -203,4 +203,36 @@ Results:
 plot(history)
 ```
 
+#Using tensorboard
+```{r}
+dir.create("example") # Create a directory as example
+model <- keras_model_sequential() %>% 
+  layer_flatten(input_shape = c(lookback / step, dim(data)[-1])) %>% 
+  layer_dense(units = 32, activation = "relu") %>% 
+  layer_dense(units = 1)
+
+model %>% compile(
+  optimizer = optimizer_rmsprop(lr = 0.001),
+  loss = "mae"
+)
+tensorboard("example")
+callbacks_list <- list(callback_tensorboard(
+  log_dir = "example",   #Saving activation histogram and embedding for
+  histogram_freq =1,            #every one epoch
+  embeddings_freq = 1,
+))
+history <- model %>% fit_generator(
+  train_gen,
+  steps_per_epoch = 500,
+  epochs = 20,
+  callbacks = callbacks_list,
+  validation_data = val_gen,
+  
+)
+```
+
+Results
+```{r}
+plot(history)
+```
 
